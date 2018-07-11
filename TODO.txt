@@ -1,0 +1,29 @@
+UI:
+	- poprawiæ tekstury zeby byly przezroczyste
+	- poprawiæ score labela
+	- Efekt eksplozji przy zderzeniach
+
+Gameplay:
+	- wykrywanie kolizji
+	- przewijanie mapy
+	- Obsluga kolizji
+	- Bonusy
+	- Pojawianie sie asteroid
+
+Dzwieki:
+	- Dodanie dzwiekow
+	
+Fizyka:
+	- poruszanie sie statku
+	- poruszanie sie asteroid
+	
+HighScores:
+	- Dodanie zapisywania do pliku
+	- Odczyt pliku i wyswietlenie
+	- Zapis i prosba o wpisanie nicku
+	
+Reszta:
+	- instrukcja jakas
+	- wyswietlanie planet w tle przy poruszaniu sie
+	
+Dodac strzelanie ? (np 3 rakiety na start)
