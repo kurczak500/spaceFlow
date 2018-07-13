@@ -14,6 +14,11 @@ var nodesNotToRemove = ["Background", "Start", "CloseGame", "Instruction", "Titl
 
 var player
 
+var timerBigAstero
+var timerSmallAstero
+var timerMediumAstero
+var timerBonus
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -132,25 +137,25 @@ func PrepareGame():
 	score.position = Vector2(1150, 20)
 	add_child(score)	
 	
-	var timerBigAstero = Timer.new()
+	timerBigAstero = Timer.new()
 	timerBigAstero.connect("timeout", self, "_on_BigAstero_timeout")
 	timerBigAstero.wait_time = 5.0
 	add_child(timerBigAstero)
 	timerBigAstero.start()
 	
-	var timerSmallAstero = Timer.new()
+	timerSmallAstero = Timer.new()
 	timerSmallAstero.connect("timeout", self, "_on_SmallAstero_timeout")
 	timerSmallAstero.wait_time = 2.0
 	add_child(timerSmallAstero)
 	timerSmallAstero.start()
 	
-	var timerMediumAstero = Timer.new()
+	timerMediumAstero = Timer.new()
 	timerMediumAstero.connect("timeout", self, "_on_MediumAstero_timeout")
 	timerMediumAstero.wait_time = 3.5
 	add_child(timerMediumAstero)
 	timerMediumAstero.start()
 	
-	var timerBonus = Timer.new()
+	timerBonus = Timer.new()
 	timerBonus.connect("timeout", self, "_on_Bonus_timeout")
 	timerBonus.wait_time = 15.0
 	add_child(timerBonus)
@@ -205,8 +210,17 @@ func AddLife():
 		add_child(life)
 		
 func GameOver():
-	player.speed = 0.0
+	get_node("..//GameOver//ExplosionSound").play()	
+	var leftDistance = DISTANCE - (player.distance/100.0)
+	RemoveNotUsedNodes()
+	lifesIcons.clear()
 	var gameOverText = get_node("..//GameOver")
+#	gameOverText.text = """										You Died!
+#	You missed """ + String(leftDistance) + """ billions kilometers to the planet Godot
+#						Game over! Press ESC to go back to menu"""
+	gameOverText.bbcode_text = """[center]You Died![/center]
+	[center]You missed """ + String(leftDistance) + """ billions kilometers to the planet Godot[/center]
+	[center]Game over! Press ESC to go back to menu[/center]"""
 	gameOverText.show()
 	
 func RemoveBody(body):

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://resources/spaceship.png" type="Texture" id=2]
 [ext_resource path="res://PlayerArea.gd" type="Script" id=3]
+[ext_resource path="res://resources/Sounds/collision.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -38,5 +39,16 @@ script = ExtResource( 3 )
 position = Vector2( 1.52466, -1.22961 )
 scale = Vector2( 6.56685, 3.71038 )
 shape = SubResource( 1 )
+
+[node name="CollisionSound" type="AudioStreamPlayer2D" parent="." index="2"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
 
 

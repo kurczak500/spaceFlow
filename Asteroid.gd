@@ -9,6 +9,7 @@ var REMOVE = -100
 onready var player = get_node("..//Player")
 
 func _ready():
+	randomize()
 	position = Vector2(STARTX, randi()%SIZEY)	
 
 func _process(delta):

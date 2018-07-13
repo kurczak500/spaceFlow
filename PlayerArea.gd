@@ -37,6 +37,7 @@ func MakeExplosion(lifes):
 	var explosion = load("res://Explosion.tscn").instance()
 	if(lifes > 0):
 		explosion.get_node("AnimatedExplosion").RunAnimation(true)
+		get_node("..//CollisionSound").play()
 	else:
 		explosion.get_node("AnimatedExplosion").RunAnimation(false)
 	add_child(explosion)

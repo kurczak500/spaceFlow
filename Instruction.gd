@@ -26,6 +26,9 @@ Timer - left time to reach Godot planet
 
 Press ESC to go back to menu"""
 
+func _ready():
+	get_node("ComputerSound").play()
+
 func _process(delta):
 	if(currentSign == text.length()):
 		return
