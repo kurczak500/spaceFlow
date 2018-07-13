@@ -2,13 +2,14 @@ extends Node2D
 
 var DEBUG = true
 var inMenu = true
+var inInstruction = false
 
 var LIFES = 3
 var FUEL = 100
 
 var lifesIcons = []
 
-var nodesNotToRemove = ["Background", "Start", "CloseGame", "HighScores", "Title"]
+var nodesNotToRemove = ["Background", "Start", "CloseGame", "Instruction", "Title"]
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -23,17 +24,22 @@ func _ready():
 func _input(event):
 	if (inMenu && event is InputEventMouseButton):
 	   CheckButtonsClick(event.position)
-	elif Input.is_action_pressed("ui_cancel"):
+	elif Input.is_action_just_released("ui_cancel"):
 		if(inMenu):
 		   HandleCloseGameButton()
+		elif(inInstruction):
+			TurnOffInstruction()
 		else:
 			TurnOffGame()
 			
-func TurnOffGame():
-	lifesIcons.clear()
+func TurnOffInstruction():
+	inInstruction = false
+	RemoveNotUsedNodes()
+	SetButtonsVisible(true)		
 	
+func RemoveNotUsedNodes():
 	if(DEBUG):		
-		print(print_tree_pretty ())
+		print(print_tree_pretty())
 	
 	var tree = get_children()
 	for node in tree:		
@@ -48,8 +54,11 @@ func TurnOffGame():
 			node.queue_free()
 				
 	if(DEBUG):		
-		print(print_tree_pretty ())
-		
+		print(print_tree_pretty())			
+
+func TurnOffGame():
+	lifesIcons.clear()
+	RemoveNotUsedNodes()		
 	SetButtonsVisible(true)			
 
 func CheckButtonsClick(clickPosition):
@@ -60,7 +69,7 @@ func CheckButtonsClick(clickPosition):
 		if(clickPosition.y >= 335 && clickPosition.y <= 385):
 			HandleStartButton()
 		elif (clickPosition.y >= 455 && clickPosition.y <= 505):
-			HandleHighScoreButton()
+			HandleInstructionButton()
 		elif(clickPosition.y >= 575 && clickPosition.y <= 625):
 			HandleCloseGameButton()
 		
@@ -72,8 +81,11 @@ func HandleStartButton():
 	SetButtonsVisible(false)
 	PrepareGame()
 	
-func HandleHighScoreButton():
-	pass
+func HandleInstructionButton():
+	var mission = load("instruction.tscn").instance()
+	add_child(mission)
+	SetButtonsVisible(false)
+	inInstruction = true
 	
 func HandleCloseGameButton():
 	get_tree().quit()
@@ -83,13 +95,13 @@ func SetButtonsVisible(value):
 		inMenu = false
 		get_node("Title").hide()
 		get_node("Start").hide()
-		get_node("HighScores").hide()
+		get_node("Instruction").hide()
 		get_node("CloseGame").hide()
 	else:
 		inMenu = true
 		get_node("Title").show()
 		get_node("Start").show()
-		get_node("HighScores").show()
+		get_node("Instruction").show()
 		get_node("CloseGame").show()
 		
 func PrepareGame():
@@ -111,3 +123,13 @@ func PrepareGame():
 	fuelBar.position = Vector2(450, 20)
 	add_child(fuelBar)
 	
+	var timer = Timer.new()
+	timer.connect("timeout", self, "_on_SmallAstero_timeout")
+	timer.wait_time = 3.0
+	add_child(timer)
+	timer.start()
+	
+func _on_SmallAstero_timeout():
+	var asteroid = load("res://Asteroid.tscn").instance()
+	add_child(asteroid)	
+	asteroid.Init(2)	

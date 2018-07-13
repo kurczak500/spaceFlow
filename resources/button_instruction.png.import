@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/button_high-scores.png-0a2447b0fdc0e10d1c8c73e4ff0db045.stex"
+path="res://.import/button_instruction.png-d13a0964b238e12229f883b4c111b977.stex"
 
 [deps]
 
-source_file="res://resources/button_high-scores.png"
-dest_files=[ "res://.import/button_high-scores.png-0a2447b0fdc0e10d1c8c73e4ff0db045.stex" ]
+source_file="res://resources/button_instruction.png"
+dest_files=[ "res://.import/button_instruction.png-d13a0964b238e12229f883b4c111b977.stex" ]
 
 [params]
 

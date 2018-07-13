@@ -2,13 +2,15 @@ UI:
 	- poprawiæ tekstury zeby byly przezroczyste
 	- poprawiæ score labela
 	- Efekt eksplozji przy zderzeniach
+	- Efekt dopalacza
+	- Ladna czcionke instrukcji i kolor monitora na troche ciemniejszy
 
 Gameplay:
 	- wykrywanie kolizji
-	- przewijanie mapy
+	- przewijanie mapy - nie, mapa stoi tylko asteroidy i inne obiekty poruszaja sie szybko
 	- Obsluga kolizji
-	- Bonusy
-	- Pojawianie sie asteroid
+	- Bonusy (dodanie/odjecie paliwa, ochrona na 15sekund, zycia, spowolnienie)
+	- Pojawianie sie asteroid (timery)
 
 Dzwieki:
 	- Dodanie dzwiekow
@@ -17,13 +19,6 @@ Fizyka:
 	- poruszanie sie statku
 	- poruszanie sie asteroid
 	
-HighScores:
-	- Dodanie zapisywania do pliku
-	- Odczyt pliku i wyswietlenie
-	- Zapis i prosba o wpisanie nicku
-	
 Reszta:
-	- instrukcja jakas
 	- wyswietlanie planet w tle przy poruszaniu sie
-	
-Dodac strzelanie ? (np 3 rakiety na start)
+	- Dodanie timera, powiedzmy na 2 minuty ze przez to gracz musi doleciec
