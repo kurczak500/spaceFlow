@@ -1,16 +1,42 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://resources/spaceship.png" type="Texture" id=2]
+[ext_resource path="res://PlayerArea.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
 
 [node name="Player" type="Node2D" index="0"]
 
+z_index = 2
 script = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Visibility", "Z Index" ]
 
 [node name="Spaceship" type="Sprite" parent="." index="0"]
 
 rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="PlayerArea" type="Area2D" parent="." index="1"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 3 )
+
+[node name="PlayerShape" type="CollisionShape2D" parent="PlayerArea" index="0"]
+
+position = Vector2( 1.52466, -1.22961 )
+scale = Vector2( 6.56685, 3.71038 )
+shape = SubResource( 1 )
 
 

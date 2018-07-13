@@ -5,15 +5,18 @@ var inMenu = true
 var inInstruction = false
 
 var LIFES = 3
-var FUEL = 100
+var FUEL = 100.0
 
 var lifesIcons = []
 
-var nodesNotToRemove = ["Background", "Start", "CloseGame", "Instruction", "Title"]
+var nodesNotToRemove = ["Background", "Start", "CloseGame", "Instruction", "Title", "GameOver"]
+
+var player
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
+	randomize()
 	pass
 
 #func _process(delta):
@@ -103,6 +106,8 @@ func SetButtonsVisible(value):
 		get_node("Start").show()
 		get_node("Instruction").show()
 		get_node("CloseGame").show()
+
+	get_node("..//GameOver").hide()
 		
 func PrepareGame():
 	for x in range(LIFES):
@@ -111,25 +116,94 @@ func PrepareGame():
 		lifesIcons.append(life)
 		add_child(life)
 		
-	var player = load("Player.tscn").instance()
-	player.position = Vector2(120, 360)
-	add_child(player)
-	
-	var score = load("res://resources/ScoreLabel.tscn").instance()
-	score.position = Vector2(1200, 20)
-	add_child(score)
-	
-	var fuelBar = load("res://resources/ProgressBar.tscn").instance()
+	var fuelBar = load("ProgressBar.tscn").instance()
 	fuelBar.position = Vector2(450, 20)
 	add_child(fuelBar)
+		
+	print(print_tree_pretty())	
+		
+	player = load("Player.tscn").instance()
+	player.position = Vector2(70, 360)
+	add_child(player)
+	print(print_tree_pretty())	
 	
-	var timer = Timer.new()
-	timer.connect("timeout", self, "_on_SmallAstero_timeout")
-	timer.wait_time = 3.0
-	add_child(timer)
-	timer.start()
+	var score = load("ScoreLabel.tscn").instance()
+	score.position = Vector2(1200, 20)
+	add_child(score)	
+	
+	var timerBigAstero = Timer.new()
+	timerBigAstero.connect("timeout", self, "_on_BigAstero_timeout")
+	timerBigAstero.wait_time = 5.0
+	add_child(timerBigAstero)
+	timerBigAstero.start()
+	
+	var timerSmallAstero = Timer.new()
+	timerSmallAstero.connect("timeout", self, "_on_SmallAstero_timeout")
+	timerSmallAstero.wait_time = 2.0
+	add_child(timerSmallAstero)
+	timerSmallAstero.start()
+	
+	var timerMediumAstero = Timer.new()
+	timerMediumAstero.connect("timeout", self, "_on_MediumAstero_timeout")
+	timerMediumAstero.wait_time = 3.5
+	add_child(timerMediumAstero)
+	timerMediumAstero.start()
+	
+	var timerBonus = Timer.new()
+	timerBonus.connect("timeout", self, "_on_Bonus_timeout")
+	timerBonus.wait_time = 15.0
+	add_child(timerBonus)
+	timerBonus.start()
+	
+func IsPlayerMoving():
+	return player.speed > 0.0
+	
+func _on_BigAstero_timeout():
+	#todo jesli gracz stoi w miejscu to nie spawnowac
+	if(IsPlayerMoving()):
+		var asteroid = load("res://BigAsteroid.tscn").instance()
+		add_child(asteroid)	
 	
 func _on_SmallAstero_timeout():
-	var asteroid = load("res://Asteroid.tscn").instance()
-	add_child(asteroid)	
-	asteroid.Init(2)	
+	if(IsPlayerMoving()):
+		var asteroid = load("res://SmallAsteroid.tscn").instance()
+		add_child(asteroid)	
+	
+func _on_MediumAstero_timeout():
+	if(IsPlayerMoving()):
+		var asteroid = load("res://MediumAsteroid.tscn").instance()
+		add_child(asteroid)	
+
+func _on_Bonus_timeout():
+	if(IsPlayerMoving()):
+		var bonus = load("res://Bonus.tscn").instance()
+		add_child(bonus)	
+		
+func RemoveLife():	
+	if(player.lifes > 0):
+		remove_child(lifesIcons[player.lifes])
+		lifesIcons[player.lifes].queue_free()
+		
+		var noLife = load("life.tscn").instance()
+		noLife.get_node("LifeIcon").hide()
+		noLife.get_node("NoLifeIcon").show()
+		noLife.position = Vector2(50 + player.lifes*100, 50)
+		lifesIcons[player.lifes] = noLife
+		add_child(noLife)
+	else:		
+		GameOver()
+		
+func AddLife():
+	if(player.lifes < 4):
+		remove_child(lifesIcons[player.lifes - 1])
+		lifesIcons[player.lifes - 1].queue_free()
+		
+		var life = load("life.tscn").instance()
+		life.position = Vector2(50 + (player.lifes-1)*100, 50)
+		lifesIcons[player.lifes - 1] = life
+		add_child(life)
+		
+func GameOver():
+	player.speed = 0.0
+	var gameOverText = get_node("..//GameOver")
+	gameOverText.show()

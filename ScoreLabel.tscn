@@ -2,6 +2,9 @@
 
 [node name="Score" type="Node2D" index="0"]
 
+z_index = 1
+_sections_unfolded = [ "Z Index" ]
+
 [node name="ScoreLabel" type="RichTextLabel" parent="." index="0"]
 
 anchor_left = 0.0

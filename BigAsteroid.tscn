@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Asteroid.gd" type="Script" id=1]
+[ext_resource path="res://resources/BigAsteroid.png" type="Texture" id=2]
+[ext_resource path="res://AsteroidArea.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="BigAsteroid" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="BigAsteroid" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="BigAsteroidArea" type="Area2D" parent="." index="1"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 3 )
+
+[node name="BigAsteroidShape" type="CollisionShape2D" parent="BigAsteroidArea" index="0"]
+
+position = Vector2( 0.976293, -0.476028 )
+scale = Vector2( 13.9139, 13.74 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+
