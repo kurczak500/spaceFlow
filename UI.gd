@@ -6,6 +6,7 @@ var inInstruction = false
 
 var LIFES = 3
 var FUEL = 100.0
+var DISTANCE = 1000000.0
 
 var lifesIcons = []
 
@@ -123,12 +124,12 @@ func PrepareGame():
 	print(print_tree_pretty())	
 		
 	player = load("Player.tscn").instance()
-	player.position = Vector2(70, 360)
+	player.position = Vector2(90, 360)
 	add_child(player)
 	print(print_tree_pretty())	
 	
 	var score = load("ScoreLabel.tscn").instance()
-	score.position = Vector2(1200, 20)
+	score.position = Vector2(1150, 20)
 	add_child(score)	
 	
 	var timerBigAstero = Timer.new()
@@ -156,7 +157,7 @@ func PrepareGame():
 	timerBonus.start()
 	
 func IsPlayerMoving():
-	return player.speed > 0.0
+	return player.speed > 0.0 #todo zwiekszcy na jakas sensowna predkosc zeby jak jest niska to nie robilo ich caly czas
 	
 func _on_BigAstero_timeout():
 	#todo jesli gracz stoi w miejscu to nie spawnowac
@@ -207,3 +208,7 @@ func GameOver():
 	player.speed = 0.0
 	var gameOverText = get_node("..//GameOver")
 	gameOverText.show()
+	
+func RemoveBody(body):
+	remove_child(body)
+	body.queue_free()

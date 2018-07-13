@@ -1,26 +1,18 @@
 UI:
 	- poprawiæ tekstury zeby byly przezroczyste
-	- poprawiæ score labela -> zamienic na odleglosc pozostala i czcionke czy cos poprawic
-	- Efekt eksplozji przy zderzeniach
 	- Efekt dopalacza
-	- Ladna czcionke instrukcji i kolor monitora na troche ciemniejszy
 	- Zakonczenie ze albo win albo game over
 
 Gameplay:
-	- Obsluga kolizji
+	- Obsluga kolizji (przy trafieniu spada speed)
 	- Bonusy (dodanie/odjecie paliwa, ochrona na 15sekund, zycia, spowolnienie)
 	- zbalansowac (NA KONIEC)
 	- paliwo tez ma schodzic przy hamowaniu!
 
 Dzwieki:
-	- Dodanie dzwiekow (zderzenia ze statkiem tylko - w koncu w kosmosie nie ma dzwiekow, w instrukcji drukowania)
-	
-Instrukcja:
-	- opisac klawisze i zasady (paliwo do wyhamowania na planete nie jest pokazywane)
-	- mozna dopisac chora akcje i powiedziec ze przewozimy nukesy tylkot rzeba znalezc animacje jak cos na game over i bedzie mega :D
-	- uwazaj na bonusy moga sie tam kryc spowolnienia jak i zycia/paliwo itd
+	- Dodanie dzwiekow (zderzenia ze statkiem tylko - w koncu w kosmosie nie ma dzwiekow, w instrukcji drukowania) 
 	
 Reszta:
 	- wyswietlanie planet w tle przy poruszaniu sie
 	- Dodanie timera, powiedzmy na 2 minuty ze przez to gracz musi doleciec
-	- zamiast score to dac tam dystans jaki pozostal do celu w mld km
+	- dodac randomzie przed kazdym lsoowaniem bo widze te same wyniki nieraz

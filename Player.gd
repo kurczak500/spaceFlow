@@ -4,7 +4,7 @@ extends Node2D
 var ZERO = 0.0;
 var VERTICALLY_SPEED = 0.1
 var DRAG = 0.98 #nie istnieje w kosmosie, ale to nie symulacja :D
-var SPRITE_SIZE_Y = 146
+var SPRITE_SIZE_Y = 146/2
 var Y_SIZE = 720
 var DEBUG = false
 
@@ -42,6 +42,12 @@ func _physics_process(delta):
 	
 	if(thrust > 0.0):
 		fuel -= (thrust/1000.0)
+		
+	var properDistance = get_parent().DISTANCE - (distance/100.0)	
+	get_node("..//Score//ScoreLabel").text = String(int(properDistance))
+	
+	if(properDistance <= 0.0):
+		pass #todo win
 	
 	if(DEBUG):
 		print("position " + String(position))

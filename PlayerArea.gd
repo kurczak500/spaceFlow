@@ -7,13 +7,12 @@ func _ready():
 
 func area_entered(body):
 	print(body.get_name())
-	if "Asteroid" in body.get_name():
+	if "Asteroid" in body.get_name():		
 		var player = get_node("..//..//Player")
 		player.lifes -= 1
-		var root = get_node("..//..//..//Game")
+		var root = get_node("..//..//..//Game")					
 		root.RemoveLife()
-		
-		body.queue_free()
+		MakeExplosion(player.lifes)	
 	elif("Bonus" in body.get_name()):		
 		body.queue_free()
 		GetBonus()
@@ -33,3 +32,11 @@ func GetBonus():
 		pass
 	elif(randomNumber == 5): #todo nwm czy bedzie czy wywalic
 		pass
+		
+func MakeExplosion(lifes):
+	var explosion = load("res://Explosion.tscn").instance()
+	if(lifes > 0):
+		explosion.get_node("AnimatedExplosion").RunAnimation(true)
+	else:
+		explosion.get_node("AnimatedExplosion").RunAnimation(false)
+	add_child(explosion)

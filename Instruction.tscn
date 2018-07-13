@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Instruction.gd" type="Script" id=1]
 [ext_resource path="res://resources/monitor.jpg" type="Texture" id=2]
+[ext_resource path="res://resources/hudFont.tres" type="DynamicFont" id=3]
 
 [node name="ShowInstr" type="Node" index="0"]
 
@@ -20,15 +21,16 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 59.0
-margin_top = 60.0
-margin_right = 1219.0
-margin_bottom = 654.0
+margin_top = 59.0
+margin_right = 1225.0
+margin_bottom = 656.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -40,6 +42,6 @@ scroll_active = true
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
-_sections_unfolded = [ "BBCode" ]
+_sections_unfolded = [ "BBCode", "Material", "Visibility", "custom_fonts" ]
 
 
