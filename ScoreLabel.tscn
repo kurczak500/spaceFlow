@@ -4,7 +4,7 @@
 
 [node name="Score" type="Node2D" index="0"]
 
-z_index = 1
+z_index = 2
 _sections_unfolded = [ "Z Index" ]
 
 [node name="ScoreLabel" type="RichTextLabel" parent="." index="0"]

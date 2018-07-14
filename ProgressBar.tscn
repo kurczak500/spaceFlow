@@ -2,7 +2,7 @@
 
 [node name="ProgressBarNode" type="Node2D" index="0"]
 
-z_index = 1
+z_index = 2
 _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
 
 [node name="ProgressBar" type="ProgressBar" parent="." index="0"]

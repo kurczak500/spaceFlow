@@ -80,7 +80,7 @@ func HandleStartButton():
 	PrepareGame()
 	
 func HandleInstructionButton():
-	var mission = load("instruction.tscn").instance()
+	var mission = load("Instruction.tscn").instance()
 	add_child(mission)
 	SetButtonsVisible(false)
 	inInstruction = true
@@ -106,7 +106,7 @@ func SetButtonsVisible(value):
 		
 func PrepareGame():
 	for x in range(LIFES):
-		var life = load("life.tscn").instance()
+		var life = load("Life.tscn").instance()
 		life.position = Vector2(50 + x*100, 50)
 		lifesIcons.append(life)
 		add_child(life)
@@ -129,13 +129,13 @@ func PrepareGame():
 	score.position = Vector2(1150, 30)
 	add_child(score)
 	
-	var deadTimer = load("res://TimerLabel.tscn").instance()
+	var deadTimer = load("TimerLabel.tscn").instance()
 	deadTimer.position = Vector2(475, 60)
 	add_child(deadTimer)
 	
 	timerBigAstero = Timer.new()
 	timerBigAstero.connect("timeout", self, "_on_BigAstero_timeout")
-	timerBigAstero.wait_time = 5.0
+	timerBigAstero.wait_time = 5.3
 	add_child(timerBigAstero)
 	timerBigAstero.start()
 	
@@ -147,13 +147,13 @@ func PrepareGame():
 	
 	timerMediumAstero = Timer.new()
 	timerMediumAstero.connect("timeout", self, "_on_MediumAstero_timeout")
-	timerMediumAstero.wait_time = 3.5
+	timerMediumAstero.wait_time = 3.4
 	add_child(timerMediumAstero)
 	timerMediumAstero.start()
 	
 	timerBonus = Timer.new()
 	timerBonus.connect("timeout", self, "_on_Bonus_timeout")
-	timerBonus.wait_time = 15.0
+	timerBonus.wait_time = 14.7
 	add_child(timerBonus)
 	timerBonus.start()
 	
@@ -168,29 +168,29 @@ func IsPlayerMoving():
 	
 func _on_BigAstero_timeout():
 	if(IsPlayerMoving()):
-		var asteroid = load("res://BigAsteroid.tscn").instance()
+		var asteroid = load("BigAsteroid.tscn").instance()
 		add_child(asteroid)	
 	
 func _on_SmallAstero_timeout():
 	if(IsPlayerMoving()):
-		var asteroid = load("res://SmallAsteroid.tscn").instance()
+		var asteroid = load("SmallAsteroid.tscn").instance()
 		add_child(asteroid)	
 	
 func _on_MediumAstero_timeout():
 	if(IsPlayerMoving()):
-		var asteroid = load("res://MediumAsteroid.tscn").instance()
+		var asteroid = load("MediumAsteroid.tscn").instance()
 		add_child(asteroid)	
 
 func _on_Bonus_timeout():
 	if(IsPlayerMoving()):
-		var bonus = load("res://Bonus.tscn").instance()
+		var bonus = load("Bonus.tscn").instance()
 		add_child(bonus)	
 		
 func RemoveLife():	
 	remove_child(lifesIcons[player.lifes])
 	lifesIcons[player.lifes].queue_free()
 		
-	var noLife = load("life.tscn").instance()
+	var noLife = load("Life.tscn").instance()
 	noLife.get_node("LifeIcon").hide()
 	noLife.get_node("NoLifeIcon").show()
 	noLife.position = Vector2(50 + player.lifes*100, 50)
@@ -217,7 +217,7 @@ func AddLife():
 		remove_child(lifesIcons[player.lifes - 1])
 		lifesIcons[player.lifes - 1].queue_free()
 		
-		var life = load("life.tscn").instance()
+		var life = load("Life.tscn").instance()
 		life.position = Vector2(50 + (player.lifes-1)*100, 50)
 		lifesIcons[player.lifes - 1] = life
 		add_child(life)
@@ -255,7 +255,7 @@ func CheckDistanceToPlanets(distanceFlown):
 		iter += 1	
 	
 	if(canShow && currentPlanet > -1):
-		var planet = load("planet.tscn").instance()
+		var planet = load("Planet.tscn").instance()
 		planet.scale = Vector2(0.5, 0.5)
 		if(currentPlanet == 6):
 			planet.scale = Vector2(0.8, 0.5)
@@ -264,13 +264,13 @@ func CheckDistanceToPlanets(distanceFlown):
 		add_child(planet)
 		
 		if(currentPlanet != 3):
-			var planetInfo = load("res://InfoLabel.tscn").instance()
+			var planetInfo = load("InfoLabel.tscn").instance()
 			planetInfo.position = Vector2(640, 690)
 			planetInfo.Init(currentPlanet)
 			add_child(planetInfo)	
 			
 func TimeEnd():
-	var explosion = load("res://Explosion.tscn").instance()
+	var explosion = load("Explosion.tscn").instance()
 	get_node("Player//Spaceship").hide()
 	explosion.get_node("AnimatedExplosion").RunAnimation(2)
 	add_child(explosion)

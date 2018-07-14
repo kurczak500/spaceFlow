@@ -11,8 +11,9 @@ extents = Vector2( 10, 10 )
 
 [node name="Bonus" type="Node2D" index="0"]
 
+z_index = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="BonusSprite" type="Sprite" parent="." index="0"]
 

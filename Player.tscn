@@ -17,7 +17,7 @@ _sections_unfolded = [ "Resource" ]
 
 [node name="Player" type="Node2D" index="0"]
 
-z_index = 2
+z_index = 3
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Visibility", "Z Index" ]
 

@@ -35,7 +35,8 @@ func GetBonus():
 		player.SlowPlayer()
 	elif(randomNumber == 3):
 		if(player.lifes < 3):
-			player.lifes += 1 #todo dodac zeby sie zaaktualizowalo GUI
+			player.lifes += 1
+			get_node("..//..//..//Game").AddLife()
 	elif(randomNumber == 4):
 		player.CreateShield()
 	elif(randomNumber == 5):
@@ -43,7 +44,7 @@ func GetBonus():
 		player.thrust = 0.0
 		
 func MakeExplosion(lifes):
-	var explosion = load("res://Explosion.tscn").instance()
+	var explosion = load("Explosion.tscn").instance()
 	if(lifes > 0):
 		explosion.get_node("AnimatedExplosion").RunAnimation(0)
 		get_node("..//CollisionSound").play()

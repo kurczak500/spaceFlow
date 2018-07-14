@@ -6,8 +6,9 @@
 
 [node name="Asteroid" type="Node2D" index="0"]
 
+z_index = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="MediumAsteroid" type="Sprite" parent="." index="0"]
 
