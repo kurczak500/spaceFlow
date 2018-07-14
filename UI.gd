@@ -157,6 +157,8 @@ func PrepareGame():
 	add_child(timerBonus)
 	timerBonus.start()
 	
+	currentPlanet = -1
+	
 func Win():	
 	RemoveNotUsedNodes()		
 	lifesIcons.clear()
