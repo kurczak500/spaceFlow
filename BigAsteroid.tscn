@@ -16,7 +16,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="BigAsteroid" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
@@ -33,8 +33,8 @@ script = ExtResource( 3 )
 
 [node name="BigAsteroidShape" type="CollisionShape2D" parent="BigAsteroidArea" index="0"]
 
-position = Vector2( 0.976293, -0.476028 )
-scale = Vector2( 13.9139, 13.74 )
+position = Vector2( 0.975363, -1.22981 )
+scale = Vector2( 10.6673, 10.8992 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 

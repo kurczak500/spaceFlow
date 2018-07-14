@@ -4,13 +4,16 @@ func _ready():
 	connect("area_entered",self,"area_entered")
 
 func area_entered(body):
-	if "Asteroid" in body.get_name():		
-		var player = get_node("..//..//Player")
+	var player = get_node("..//..//Player")
+	if(player.lifes == 0):
+		return
+	
+	if "Asteroid" in body.get_name():				
 		if(!player.isShieldOn):
 			player.lifes -= 1
 			var root = get_node("..//..//..//Game")					
 			root.RemoveLife()
-			
+			player.speed *= 0.8
 		MakeExplosion(player.lifes)	
 	elif("Bonus" in body.get_name()):		
 		body.queue_free()
@@ -32,7 +35,7 @@ func GetBonus():
 		player.SlowPlayer()
 	elif(randomNumber == 3):
 		if(player.lifes < 3):
-			player.lifes += 1
+			player.lifes += 1 #todo dodac zeby sie zaaktualizowalo GUI
 	elif(randomNumber == 4):
 		player.CreateShield()
 	elif(randomNumber == 5):
@@ -42,10 +45,10 @@ func GetBonus():
 func MakeExplosion(lifes):
 	var explosion = load("res://Explosion.tscn").instance()
 	if(lifes > 0):
-		explosion.get_node("AnimatedExplosion").RunAnimation(true)
+		explosion.get_node("AnimatedExplosion").RunAnimation(0)
 		get_node("..//CollisionSound").play()
 	else:
 		get_node("..//Spaceship").hide()
-		explosion.get_node("AnimatedExplosion").RunAnimation(false)
+		explosion.get_node("AnimatedExplosion").RunAnimation(1)
 		get_node("..//ExplosionSound").play()	
 	add_child(explosion)

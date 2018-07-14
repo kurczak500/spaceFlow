@@ -9,6 +9,7 @@ func Init(currentPlanet):
 	var timer = Timer.new()
 	timer.connect("timeout", self, "_on_timer_timeout")
 	timer.wait_time = 2.5
+	timer.one_shot = true
 	add_child(timer)
 	timer.start()
 	

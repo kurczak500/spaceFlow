@@ -126,8 +126,12 @@ func PrepareGame():
 		print(print_tree_pretty())	
 	
 	var score = load("ScoreLabel.tscn").instance()
-	score.position = Vector2(1150, 20)
-	add_child(score)	
+	score.position = Vector2(1150, 30)
+	add_child(score)
+	
+	var deadTimer = load("res://TimerLabel.tscn").instance()
+	deadTimer.position = Vector2(475, 60)
+	add_child(deadTimer)
 	
 	timerBigAstero = Timer.new()
 	timerBigAstero.connect("timeout", self, "_on_BigAstero_timeout")
@@ -160,7 +164,7 @@ func Win():
 	add_child(winningScene)	
 	
 func IsPlayerMoving():
-	return player.speed > 0.0 #todo zwiekszcy na jakas sensowna predkosc zeby jak jest niska to nie robilo ich caly czas
+	return (player.speed > 8000.0 || player.fuel == 0.0)
 	
 func _on_BigAstero_timeout():
 	if(IsPlayerMoving()):
@@ -183,23 +187,27 @@ func _on_Bonus_timeout():
 		add_child(bonus)	
 		
 func RemoveLife():	
-	if(player.lifes > 0):
-		remove_child(lifesIcons[player.lifes])
-		lifesIcons[player.lifes].queue_free()
+	remove_child(lifesIcons[player.lifes])
+	lifesIcons[player.lifes].queue_free()
 		
-		var noLife = load("life.tscn").instance()
-		noLife.get_node("LifeIcon").hide()
-		noLife.get_node("NoLifeIcon").show()
-		noLife.position = Vector2(50 + player.lifes*100, 50)
-		lifesIcons[player.lifes] = noLife
-		add_child(noLife)
-	else:
-		player.speed = 0.0
-		var deathTimer = Timer.new()
-		deathTimer.connect("timeout", self, "_on_Death_timeout")
-		deathTimer.wait_time = 1.5
-		add_child(deathTimer)
-		deathTimer.start()				
+	var noLife = load("life.tscn").instance()
+	noLife.get_node("LifeIcon").hide()
+	noLife.get_node("NoLifeIcon").show()
+	noLife.position = Vector2(50 + player.lifes*100, 50)
+	lifesIcons[player.lifes] = noLife
+	add_child(noLife)
+	
+	if(player.lifes == 0):
+		KillPlayer()			
+		
+func KillPlayer():
+	player.speed = 0.0
+	var deathTimer = Timer.new()
+	deathTimer.connect("timeout", self, "_on_Death_timeout")
+	deathTimer.wait_time = 1.5
+	deathTimer.one_shot = true
+	add_child(deathTimer)
+	deathTimer.start()		
 		
 func _on_Death_timeout():
 	GameOver()
@@ -260,3 +268,11 @@ func CheckDistanceToPlanets(distanceFlown):
 			planetInfo.position = Vector2(640, 690)
 			planetInfo.Init(currentPlanet)
 			add_child(planetInfo)	
+			
+func TimeEnd():
+	var explosion = load("res://Explosion.tscn").instance()
+	get_node("Player//Spaceship").hide()
+	explosion.get_node("AnimatedExplosion").RunAnimation(2)
+	add_child(explosion)
+	get_node("Player//ExplosionSound").play()
+	KillPlayer()

@@ -13,7 +13,11 @@ func _ready():
 	position = Vector2(STARTX, randi()%SIZEY)	
 
 func _process(delta):
-	velocity = Vector2(player.speed * 0.0001, 0)
+	var asteroidSpeed = player.speed * 0.0001
+	if(player.speed == 0 && player.fuel == 0.0):
+		asteroidSpeed = 8000.0 * 0.0001
+		
+	velocity = Vector2(asteroidSpeed, 0)
 	position -= velocity
 
 	if(position.x < REMOVE):

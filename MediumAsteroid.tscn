@@ -16,7 +16,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="MediumAsteroid" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 0.7, 0.7 )
+scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
@@ -34,8 +34,8 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="MediumAsteroidShape" type="CollisionShape2D" parent="MediumAsteroidArea" index="0"]
 
-position = Vector2( 2.48315, -1.98369 )
-scale = Vector2( 13.5661, 13.9719 )
+position = Vector2( 5.49819, -3.49105 )
+scale = Vector2( 10.8992, 11.6529 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 

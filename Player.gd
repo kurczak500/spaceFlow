@@ -6,7 +6,6 @@ var VERTICALLY_SPEED = 0.1
 var DRAG = 0.98 #nie istnieje w kosmosie, ale to nie 100% symulacja :D
 var SPRITE_SIZE_Y = 146/2
 var Y_SIZE = 720
-var DEBUG = false
 
 #vars
 var velocity = Vector2(ZERO, 0.0)
@@ -50,15 +49,12 @@ func _physics_process(delta):
 		return
 	
 	get_parent().CheckDistanceToPlanets(distance/100.0)
-	
-	if(DEBUG):
-		print("position " + String(position))
-		print("velocity " + String(velocity))
-		print("thrust " + String(thrust))
-		print("distance " + String(distance))
-		print("speed " + String(speed))
+	ThrustControl()
 
 func _process(delta):
+	if(lifes == 0):
+		return
+		
 	if Input.is_action_pressed("ui_right"): #prawo - zwiekszamy thrust
 		if(thrust < 100):
 			thrust += 0.5					
@@ -69,6 +65,8 @@ func _process(delta):
 		velocity -= Vector2(ZERO, VERTICALLY_SPEED)
 	if Input.is_action_pressed("ui_down"): #dol - przesuwamy w dol
 		velocity += Vector2(ZERO, VERTICALLY_SPEED)
+	if Input.is_action_just_released("ui_select"): #spacja - thrust na 0
+		thrust = 0.0
 	
 func AcceptPosition():
 	if(position.y < 0 + SPRITE_SIZE_Y/2 || position.y > Y_SIZE - SPRITE_SIZE_Y/2):
@@ -84,12 +82,12 @@ func SlowPlayer():
 	slowerTimer = Timer.new()
 	slowerTimer.connect("timeout", self, "_on_slower_timeout")
 	slowerTimer.wait_time = 5.0
+	slowerTimer.one_shot = true
 	add_child(slowerTimer)
 	slowerTimer.start()
 	VERTICALLY_SPEED = 0.008
 	
 func _on_slower_timeout():
-	slowerTimer.stop()
 	slowerTimer.queue_free()
 	VERTICALLY_SPEED = 0.1
 	
@@ -97,14 +95,70 @@ func CreateShield():
 	shieldTimer = Timer.new()
 	shieldTimer.connect("timeout", self, "_on_shield_timeout")
 	shieldTimer.wait_time = 5.0
+	shieldTimer.one_shot = true
 	add_child(shieldTimer)
 	shieldTimer.start()
 	get_node("Shield").show()
 	isShieldOn = true
 
 func _on_shield_timeout():
-	shieldTimer.stop()
 	shieldTimer.queue_free()
 	get_node("Shield").hide()
 	isShieldOn = false
 	
+func ThrustControl():
+	var positiveThrust = get_node("PositiveThrust")
+	var negativeThrust = get_node("NegativeThrust")
+	if(thrust == 0.0 || lifes == 0):
+		positiveThrust.hide()
+		negativeThrust.hide()
+		return
+		
+	if(thrust > 0.0):
+		negativeThrust.hide()
+		if(thrust <= 10.0):
+			positiveThrust.scale = Vector2(1.0, 0.3)
+		elif(thrust <= 20.0):
+			positiveThrust.scale = Vector2(1.0, 0.4)
+		elif(thrust <= 30.0):
+			positiveThrust.scale = Vector2(1.0, 0.5)
+		elif(thrust <= 40.0):
+			positiveThrust.scale = Vector2(1.0, 0.6)
+		elif(thrust <= 50.0):
+			positiveThrust.scale = Vector2(1.0, 0.7)
+		elif(thrust <= 60.0):
+			positiveThrust.scale = Vector2(1.0, 0.8)
+		elif(thrust <= 70.0):
+			positiveThrust.scale = Vector2(1.0, 0.9)
+		elif(thrust <= 80.0):
+			positiveThrust.scale = Vector2(1.0, 1.0)
+		elif(thrust <= 90.0):
+			positiveThrust.scale = Vector2(1.0, 1.05)
+		elif(thrust <= 100.0):
+			positiveThrust.scale = Vector2(1.0, 1.117773)
+			
+		positiveThrust.show()
+	elif(thrust < 0.0):
+		positiveThrust.hide()
+		if(thrust >= -10.0):
+			negativeThrust.scale = Vector2(1.0, 0.5)
+		elif(thrust >= -20.0):
+			negativeThrust.scale = Vector2(1.0, 0.6)
+		elif(thrust >= -30.0):
+			negativeThrust.scale = Vector2(1.0, 0.7)
+		elif(thrust >= -40.0):
+			negativeThrust.scale = Vector2(1.0, 0.8)
+		elif(thrust >= -50.0):
+			negativeThrust.scale = Vector2(1.0, 0.9)
+		elif(thrust >= -60.0):
+			negativeThrust.scale = Vector2(1.0, 1.0)
+		elif(thrust >= -70.0):
+			negativeThrust.scale = Vector2(1.0, 1.1)
+		elif(thrust >= -80.0):
+			negativeThrust.scale = Vector2(1.0, 1.2)
+		elif(thrust >= -90.0):
+			negativeThrust.scale = Vector2(1.0, 1.3)
+		elif(thrust >= -100.0):
+			negativeThrust.scale = Vector2(1.0, 1.467873)
+			
+		negativeThrust.show()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://resources/spaceship.png" type="Texture" id=2]
@@ -6,11 +6,14 @@
 [ext_resource path="res://resources/Sounds/collision.wav" type="AudioStream" id=4]
 [ext_resource path="res://resources/shield.png" type="Texture" id=5]
 [ext_resource path="res://resources/Sounds/explosion.wav" type="AudioStream" id=6]
+[ext_resource path="res://resources/thrust.png" type="Texture" id=7]
+[ext_resource path="res://resources/negativeThrust.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
+_sections_unfolded = [ "Resource" ]
 
 [node name="Player" type="Node2D" index="0"]
 
@@ -35,12 +38,14 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 3 )
+_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="PlayerShape" type="CollisionShape2D" parent="PlayerArea" index="0"]
 
-position = Vector2( 1.52466, -2.73695 )
-scale = Vector2( 6.56685, 3.71038 )
+position = Vector2( -0.958985, -0.115263 )
+scale = Vector2( 5.70444, 3.26086 )
 shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="CollisionSound" type="AudioStreamPlayer2D" parent="." index="2"]
 
@@ -70,5 +75,21 @@ max_distance = 2000.0
 attenuation = 1.0
 bus = "Master"
 area_mask = 1
+
+[node name="PositiveThrust" type="Sprite" parent="." index="5"]
+
+visible = false
+position = Vector2( -256.248, 0.939704 )
+scale = Vector2( 1, 1.10471 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="NegativeThrust" type="Sprite" parent="." index="6"]
+
+visible = false
+position = Vector2( -180.881, -1.45885 )
+scale = Vector2( 1, 1.46787 )
+texture = ExtResource( 8 )
+_sections_unfolded = [ "Transform" ]
 
 

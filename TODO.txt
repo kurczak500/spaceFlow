@@ -1,13 +1,2 @@
-UI:
-	- Efekt dopalacza
-	
-Gameplay:
-	- Obsluga kolizji (przy trafieniu spada speed itd + obsluga pomiedzy asteroidami)
-	
-Reszta:
-	- Dodanie timera, powiedzmy na 2 minuty ze przez to gracz musi doleciec
-	
 NA KONIEC:
-	- przed stworzeniem asteroidy sprawdzac czy nie ma kolizji z inna
-	- zbalansowac (blad z thrustem za duzo paliwa zre zwolnienie? mniejsze troche asteroidy bo nieraz nie ma jak sie przecisnac)
-	
+	- uzyc collisionpolygon2d zamiast obecnych i ladnie obrysowac (po zmianie wielkosci)
