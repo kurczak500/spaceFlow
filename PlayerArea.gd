@@ -45,5 +45,7 @@ func MakeExplosion(lifes):
 		explosion.get_node("AnimatedExplosion").RunAnimation(true)
 		get_node("..//CollisionSound").play()
 	else:
+		get_node("..//Spaceship").hide()
 		explosion.get_node("AnimatedExplosion").RunAnimation(false)
+		get_node("..//ExplosionSound").play()	
 	add_child(explosion)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI.gd" type="Script" id=1]
 [ext_resource path="res://resources/Space.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://resources/button_close-game.png" type="Texture" id=5]
 [ext_resource path="res://resources/gameLogo.png" type="Texture" id=6]
 [ext_resource path="res://resources/hudFont.tres" type="DynamicFont" id=7]
-[ext_resource path="res://resources/Sounds/explosion.wav" type="AudioStream" id=8]
 
 [node name="Root" type="Node" index="0"]
 
@@ -76,17 +75,5 @@ scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "Anchor", "BBCode", "Focus", "Margin", "Mouse", "Theme", "custom_colors", "custom_fonts", "custom_styles" ]
-
-[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="GameOver" index="1"]
-
-position = Vector2( -223, -236 )
-stream = ExtResource( 8 )
-volume_db = 0.0
-pitch_scale = 1.0
-autoplay = false
-max_distance = 2000.0
-attenuation = 1.0
-bus = "Master"
-area_mask = 1
 
 

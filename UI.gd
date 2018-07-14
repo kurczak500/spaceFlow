@@ -112,15 +112,18 @@ func PrepareGame():
 		add_child(life)
 		
 	var fuelBar = load("ProgressBar.tscn").instance()
-	fuelBar.position = Vector2(450, 20)
+	fuelBar.position = Vector2(500, 20)
 	add_child(fuelBar)
-		
-	print(print_tree_pretty())	
+	
+	if(DEBUG):	
+		print(print_tree_pretty())	
 		
 	player = load("Player.tscn").instance()
 	player.position = Vector2(90, 360)
 	add_child(player)
-	print(print_tree_pretty())	
+	
+	if(DEBUG):
+		print(print_tree_pretty())	
 	
 	var score = load("ScoreLabel.tscn").instance()
 	score.position = Vector2(1150, 20)
@@ -150,11 +153,16 @@ func PrepareGame():
 	add_child(timerBonus)
 	timerBonus.start()
 	
+func Win():	
+	RemoveNotUsedNodes()		
+	lifesIcons.clear()
+	var winningScene = load("WinningScene.tscn").instance()
+	add_child(winningScene)	
+	
 func IsPlayerMoving():
 	return player.speed > 0.0 #todo zwiekszcy na jakas sensowna predkosc zeby jak jest niska to nie robilo ich caly czas
 	
 func _on_BigAstero_timeout():
-	#todo jesli gracz stoi w miejscu to nie spawnowac
 	if(IsPlayerMoving()):
 		var asteroid = load("res://BigAsteroid.tscn").instance()
 		add_child(asteroid)	
@@ -185,8 +193,16 @@ func RemoveLife():
 		noLife.position = Vector2(50 + player.lifes*100, 50)
 		lifesIcons[player.lifes] = noLife
 		add_child(noLife)
-	else:		
-		GameOver()
+	else:
+		player.speed = 0.0
+		var deathTimer = Timer.new()
+		deathTimer.connect("timeout", self, "_on_Death_timeout")
+		deathTimer.wait_time = 1.5
+		add_child(deathTimer)
+		deathTimer.start()				
+		
+func _on_Death_timeout():
+	GameOver()
 		
 func AddLife():
 	if(player.lifes < 4):
@@ -199,7 +215,6 @@ func AddLife():
 		add_child(life)
 		
 func GameOver():
-	get_node("..//GameOver//ExplosionSound").play()	
 	var leftDistance = DISTANCE - (player.distance/100.0)
 	RemoveNotUsedNodes()
 	lifesIcons.clear()
@@ -220,7 +235,8 @@ var planetsDistance = [50, 120, 200, 225, 300, 400, 500, 600, 700, 800, 990]
 var currentPlanet = -1	
 	
 func CheckDistanceToPlanets(distanceFlown):
-	print(distanceFlown)
+	if(DEBUG):
+		print(distanceFlown)
 	
 	var iter = 0
 	var canShow = false
@@ -238,3 +254,9 @@ func CheckDistanceToPlanets(distanceFlown):
 			
 		planet.Init(currentPlanet)
 		add_child(planet)
+		
+		if(currentPlanet != 3):
+			var planetInfo = load("res://InfoLabel.tscn").instance()
+			planetInfo.position = Vector2(640, 690)
+			planetInfo.Init(currentPlanet)
+			add_child(planetInfo)	

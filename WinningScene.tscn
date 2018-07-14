@@ -1,28 +1,39 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://resources/hudFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Wygranko.gd" type="Script" id=2]
-[ext_resource path="res://resources/win.jpg" type="Texture" id=3]
+[ext_resource path="res://WinningScene.gd" type="Script" id=1]
+[ext_resource path="res://resources/win.jpg" type="Texture" id=2]
+[ext_resource path="res://resources/hudFont.tres" type="DynamicFont" id=3]
 
 [node name="WinningScene" type="Node2D" index="0"]
 
-[node name="Wygranko" type="RichTextLabel" parent="." index="0"]
+z_index = 3
+script = ExtResource( 1 )
+_sections_unfolded = [ "Visibility", "Z Index" ]
+
+[node name="NewPlanet" type="Sprite" parent="." index="0"]
+
+position = Vector2( 640, 360 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Wygranko" type="RichTextLabel" parent="." index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 188.0
-margin_top = 181.0
-margin_right = 1119.0
-margin_bottom = 526.0
+margin_left = 235.0
+margin_top = 241.0
+margin_right = 1084.0
+margin_bottom = 578.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 3 )
+custom_colors/default_color = Color( 0.804688, 0.0314331, 0.0314331, 1 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -34,13 +45,6 @@ scroll_active = true
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
-script = ExtResource( 2 )
-_sections_unfolded = [ "BBCode", "custom_fonts" ]
-
-[node name="NewPlanet" type="Sprite" parent="." index="1"]
-
-position = Vector2( 640, 360 )
-texture = ExtResource( 3 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "BBCode", "custom_colors", "custom_fonts" ]
 
 

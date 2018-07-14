@@ -46,7 +46,8 @@ func _physics_process(delta):
 	get_node("..//Score//ScoreLabel").text = String(int(properDistance))
 	
 	if(properDistance <= 0.0):
-		pass #todo win
+		get_parent().Win()
+		return
 	
 	get_parent().CheckDistanceToPlanets(distance/100.0)
 	

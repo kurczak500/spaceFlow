@@ -6,10 +6,8 @@ Gameplay:
 	
 Reszta:
 	- Dodanie timera, powiedzmy na 2 minuty ze przez to gracz musi doleciec
-	- Moze info na dole ze np You reached Mercury/Wenus itd i info o bonusach
 	
 NA KONIEC:
 	- przed stworzeniem asteroidy sprawdzac czy nie ma kolizji z inna
-	- zbalansowac (blad z thrustem za duzo paliwa zre zwolnienie?)
-	- po wybuchu odczekac 2sekundy zeby pokazalo zanim koniec
-	- przetestowac win okno
+	- zbalansowac (blad z thrustem za duzo paliwa zre zwolnienie? mniejsze troche asteroidy bo nieraz nie ma jak sie przecisnac)
+	
