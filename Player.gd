@@ -3,7 +3,7 @@ extends Node2D
 #consts
 var ZERO = 0.0;
 var VERTICALLY_SPEED = 0.1
-var DRAG = 0.98 #nie istnieje w kosmosie, ale to nie symulacja :D
+var DRAG = 0.98 #nie istnieje w kosmosie, ale to nie 100% symulacja :D
 var SPRITE_SIZE_Y = 146/2
 var Y_SIZE = 720
 var DEBUG = false
@@ -19,16 +19,10 @@ var speed = 0.0
 onready var progressBar = get_node("..//ProgressBarNode//ProgressBar")
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	lifes = get_parent().LIFES #get lifes from root
 	fuel = get_parent().FUEL #get fuel from root
 	
 func _physics_process(delta):
-	velocity *= DRAG
-	position += velocity
-	AcceptPosition()
-	
 	if(fuel <= 0.0):
 		fuel = 0.0
 		thrust = 0.0
@@ -37,17 +31,24 @@ func _physics_process(delta):
 	speed += thrust
 	if(speed < 0.0):
 		speed = 0.0
+		thrust = 0.0
 		
 	distance += speed
 	
-	if(thrust > 0.0):
-		fuel -= (thrust/1000.0)
+	if(thrust != 0.0):
+		fuel -= (abs(thrust)/1000.0)
+		
+	velocity *= DRAG
+	position += velocity
+	AcceptPosition()
 		
 	var properDistance = get_parent().DISTANCE - (distance/100.0)	
 	get_node("..//Score//ScoreLabel").text = String(int(properDistance))
 	
 	if(properDistance <= 0.0):
 		pass #todo win
+	
+	get_parent().CheckDistanceToPlanets(distance/100.0)
 	
 	if(DEBUG):
 		print("position " + String(position))
@@ -73,4 +74,36 @@ func AcceptPosition():
 		position -= velocity
 		velocity = Vector2(ZERO, ZERO)
 		
-var planetsDistance = [100, 200, 300, 325, 500, 700, 900, 1300, 1600, 1800, 2200]
+
+var slowerTimer
+var shieldTimer
+var isShieldOn = false
+
+func SlowPlayer():
+	slowerTimer = Timer.new()
+	slowerTimer.connect("timeout", self, "_on_slower_timeout")
+	slowerTimer.wait_time = 5.0
+	add_child(slowerTimer)
+	slowerTimer.start()
+	VERTICALLY_SPEED = 0.008
+	
+func _on_slower_timeout():
+	slowerTimer.stop()
+	slowerTimer.queue_free()
+	VERTICALLY_SPEED = 0.1
+	
+func CreateShield():
+	shieldTimer = Timer.new()
+	shieldTimer.connect("timeout", self, "_on_shield_timeout")
+	shieldTimer.wait_time = 5.0
+	add_child(shieldTimer)
+	shieldTimer.start()
+	get_node("Shield").show()
+	isShieldOn = true
+
+func _on_shield_timeout():
+	shieldTimer.stop()
+	shieldTimer.queue_free()
+	get_node("Shield").hide()
+	isShieldOn = false
+	

@@ -1,6 +1,6 @@
 extends Node2D
 
-var DEBUG = true
+var DEBUG = false
 var inMenu = true
 var inInstruction = false
 
@@ -20,16 +20,8 @@ var timerMediumAstero
 var timerBonus
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	randomize()
-	pass
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
-
+	
 func _input(event):
 	if (inMenu && event is InputEventMouseButton):
 	   CheckButtonsClick(event.position)
@@ -84,9 +76,6 @@ func CheckButtonsClick(clickPosition):
 		
 
 func HandleStartButton():
-	var planet = load("planet.tscn").instance()
-	planet.Init(2)
-	add_child(planet)
 	SetButtonsVisible(false)
 	PrepareGame()
 	
@@ -226,3 +215,26 @@ func GameOver():
 func RemoveBody(body):
 	remove_child(body)
 	body.queue_free()
+	
+var planetsDistance = [50, 120, 200, 225, 300, 400, 500, 600, 700, 800, 990]
+var currentPlanet = -1	
+	
+func CheckDistanceToPlanets(distanceFlown):
+	print(distanceFlown)
+	
+	var iter = 0
+	var canShow = false
+	for item in planetsDistance:
+		if(currentPlanet < iter && distanceFlown >= item*1000):
+			currentPlanet = iter
+			canShow = true
+		iter += 1	
+	
+	if(canShow && currentPlanet > -1):
+		var planet = load("planet.tscn").instance()
+		planet.scale = Vector2(0.5, 0.5)
+		if(currentPlanet == 6):
+			planet.scale = Vector2(0.8, 0.5)
+			
+		planet.Init(currentPlanet)
+		add_child(planet)

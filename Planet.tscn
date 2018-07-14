@@ -56,7 +56,9 @@ texture = ExtResource( 8 )
 [node name="Saturn" type="Sprite" parent="." index="7"]
 
 visible = false
+scale = Vector2( 1.5, 1 )
 texture = ExtResource( 9 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Uran" type="Sprite" parent="." index="8"]
 

@@ -1,17 +1,16 @@
 extends Area2D
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	connect("area_entered",self,"area_entered")
 
 func area_entered(body):
-	print(body.get_name())
 	if "Asteroid" in body.get_name():		
 		var player = get_node("..//..//Player")
-		player.lifes -= 1
-		var root = get_node("..//..//..//Game")					
-		root.RemoveLife()
+		if(!player.isShieldOn):
+			player.lifes -= 1
+			var root = get_node("..//..//..//Game")					
+			root.RemoveLife()
+			
 		MakeExplosion(player.lifes)	
 	elif("Bonus" in body.get_name()):		
 		body.queue_free()
@@ -19,19 +18,26 @@ func area_entered(body):
 		
 func GetBonus():
 	var player = get_node("..//..//Player")
-	var randomNumber = randi()%5	
+	randomize()
+	var randomNumber = randi()%6	
 	if(randomNumber == 0):
-		pass
+		player.fuel += 5.0
+		if(player.fuel > 100.0):
+			player.fuel = 100.0
 	elif(randomNumber == 1):
-		pass
+		player.fuel -= 5.0
+		if(player.fuel < 0.0):
+			player.fuel = 0.0
 	elif(randomNumber == 2):
-		pass
+		player.SlowPlayer()
 	elif(randomNumber == 3):
-		pass
+		if(player.lifes < 3):
+			player.lifes += 1
 	elif(randomNumber == 4):
-		pass
-	elif(randomNumber == 5): #todo nwm czy bedzie czy wywalic
-		pass
+		player.CreateShield()
+	elif(randomNumber == 5):
+		player.speed = 0.0
+		player.thrust = 0.0
 		
 func MakeExplosion(lifes):
 	var explosion = load("res://Explosion.tscn").instance()

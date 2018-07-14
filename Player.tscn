@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://resources/spaceship.png" type="Texture" id=2]
 [ext_resource path="res://PlayerArea.gd" type="Script" id=3]
 [ext_resource path="res://resources/Sounds/collision.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/shield.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -36,7 +37,7 @@ script = ExtResource( 3 )
 
 [node name="PlayerShape" type="CollisionShape2D" parent="PlayerArea" index="0"]
 
-position = Vector2( 1.52466, -1.22961 )
+position = Vector2( 1.52466, -2.73695 )
 scale = Vector2( 6.56685, 3.71038 )
 shape = SubResource( 1 )
 
@@ -50,5 +51,12 @@ max_distance = 2000.0
 attenuation = 1.0
 bus = "Master"
 area_mask = 1
+
+[node name="Shield" type="Sprite" parent="." index="3"]
+
+visible = false
+scale = Vector2( 0.39668, 0.363267 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 
