@@ -1,2 +1,0 @@
-NA KONIEC:
-	- uzyc collisionpolygon2d zamiast obecnych i ladnie obrysowac (po zmianie wielkosci)

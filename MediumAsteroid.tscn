@@ -1,13 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Asteroid.gd" type="Script" id=1]
 [ext_resource path="res://resources/mediumAsteroid.png" type="Texture" id=2]
 [ext_resource path="res://AsteroidArea.gd" type="Script" id=3]
-
-[sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
 
 [node name="Asteroid" type="Node2D" index="0"]
 
@@ -32,11 +27,9 @@ audio_bus_name = "Master"
 script = ExtResource( 3 )
 _sections_unfolded = [ "Collision" ]
 
-[node name="MediumAsteroidShape" type="CollisionShape2D" parent="MediumAsteroidArea" index="0"]
+[node name="MediumAsteroidShape" type="CollisionPolygon2D" parent="MediumAsteroidArea" index="0"]
 
-position = Vector2( 5.49819, -3.49105 )
-scale = Vector2( 10.8992, 11.6529 )
-shape = SubResource( 1 )
-_sections_unfolded = [ "Transform" ]
+build_mode = 0
+polygon = PoolVector2Array( 114, -44.1568, 37.4366, -115.019, -4.91771, -121.535, -59.4897, -115.019, -112.433, -79.9951, -83.9249, 32.4068, 13.8159, 113.043, 39.8802, 110.599, 110.742, 21.8182 )
 
 
